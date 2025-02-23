@@ -1,52 +1,81 @@
-# Python scripts in GitHub Actions
+# FastAPI Date Counter
 
-Learn how to run Python scripts on GitHub Actions! This allows you to handle logic that might be a bit more complex, like setting conditional behavior based on results.
+Este proyecto es una API construida con FastAPI que proporciona la fecha actual en diferentes formatos y cuenta el número de veces que ha sido llamada.
 
-Although GitHub actions is powerful as-is, it can get complicated when consuming inputs from other sources like an HTTP request providing JSON output.
+## 🚀 Características
+- **POST /get_date**: Retorna la fecha actual en formato detallado o simplificado según un parámetro booleano.
+- **GET /counter**: Devuelve la cantidad de veces que se ha llamado cualquiera de los dos endpoints.
+- Implementado con **FastAPI** y ejecutable en un contenedor **Docker**.
 
-Imagine a scenario where, depending on the JSON output of an HTTP request you have to do an API call. You might be able to do this with a specialized action or workflow, but with Python it might be easier.
+## 📦 Instalación y Ejecución
+### 1️⃣ Clonar el repositorio
+```sh
+git clone https://github.com/tu-usuario/tu-repositorio.git
+cd tu-repositorio
+```
 
-The full video is available on [YouTube](https://www.youtube.com/watch?v=o2o_xF6NhD0), and the full lesson is also available on the [O'Reilly platform](https://learning.oreilly.com/videos/python-dictionaries-course/50137VIDEOPAIML/)
+### 2️⃣ Crear un entorno virtual (opcional)
+```sh
+python -m venv env
+source env/bin/activate  # En macOS/Linux
+env\Scripts\activate     # En Windows
+```
 
-[![O'Reilly](https://learning.oreilly.com/covers/urn:orm:video:50137VIDEOPAIML//400w/)](https://learning.oreilly.com/videos/run-python-in/50137VIDEOPAIML/ "Python in GitHub Actions")
-> 🎥 Click the image above to access the full lesson on O'Reilly
+### 3️⃣ Instalar dependencias
+```sh
+pip install -r requirements.txt
+```
 
+### 4️⃣ Ejecutar la aplicación localmente
+```sh
+uvicorn main:app --reload
+```
+La API estará disponible en: [http://localhost:8000](http://localhost:8000)
 
+## 🐳 Ejecución con Docker
+### 1️⃣ Construir la imagen
+```sh
+docker build -t fastapi-app .
+```
 
-# Table of Contents
+### 2️⃣ Ejecutar el contenedor
+```sh
+docker run -p 8000:8000 fastapi-app
+```
 
-- [📚 Course Content](#course-content)
-- [🎯Learning Objectives](#learning-objectives)
-- [💡 Useful Resources](#useful-resources)
+## 📖 Endpoints
+### `POST /get_date`
+- **Parámetro:** `detailed` (booleano)
+- **Ejemplo de request:**
+  ```sh
+  curl -X 'POST' 'http://localhost:8000/get_date' \
+       -H 'Content-Type: application/json' \
+       -d '{"detailed": true}'
+  ```
+- **Ejemplo de respuesta:**
+  ```json
+  { "date": "2025-02-19 14:30:00" }
+  ```
 
+### `GET /counter`
+- **Ejemplo de request:**
+  ```sh
+  curl -X 'GET' 'http://localhost:8000/counter'
+  ```
+- **Ejemplo de respuesta:**
+  ```json
+  { "count": 5 }
+  ```
 
+## 📜 Documentación automática
+FastAPI genera documentación interactiva:
+- [Swagger UI](http://localhost:8000/docs)
+- [ReDoc](http://localhost:8000/redoc)
 
-# Lesson Content
+## ✨ Contribuciones
+Si deseas mejorar este proyecto, ¡las contribuciones son bienvenidas! Crea un *fork*, haz tus cambios y envía un *pull request*.
 
-The easiest way of going through the full lesson is using the [O'Reilly platform](https://learning.oreilly.com/videos/python-dictionaries-course/50136VIDEOPAIML/) but you can start here as well and on [YouTube](https://youtu.be/Wu7j8z4B-1Y).
+## 📄 Licencia
+Este proyecto está bajo la licencia MIT. ¡Disfrútalo! 🚀
 
-
-1. [Create a GitHub Action YAML file](./.github/workflows/script.yml)
-1. [Add a Python file](./.github/workflows/example.py)
-1. [Create a repository secret](settings/secrets/actions)
-1. [Manually trigger your workflow](actions)
-
-
-## Learning Objectives
-
-In this lesson you will learn:
-
-- How to run a Python script with GitHub Actions
-- Create a Python script that can be executed from an Action
-- Consume Action Secrets in the Python script
-- Explore other ways to install dependencies  if needed
-
-
-# Useful Resources
-
-- [GitHub repository with sample code](https://github.com/alfredodeza/python-action)
-- [Python dictionaries Learn Module](https://docs.microsoft.com/learn/modules/python-dictionaries/?WT.mc_id=academic-0000-alfredodeza)
-- [Minimal Python book](https://www.amazon.com/Minimal-Python-efficient-programmer-onemillion2021-ebook/dp/B0855NSRR7)
-- [Free Azure Certification for Students](https://docs.microsoft.com/learn/certifications/student-training-and-certification?WT.mc_id=academic-0000-alfredodeza)
-- [Python for Beginners Learn Path](https://docs.microsoft.com/learn/paths/beginner-python/?WT.mc_id=academic-0000-alfredodeza)
 
